@@ -1,3 +1,9 @@
+[web_servers]
 ansible-test-01.bruning.io
+ansible-test-04.bruning.io
+
+[db_servers]
 ansible-test-02.bruning.io
+
+[file_servers]
 ansible-test-03.bruning.io
