@@ -7,3 +7,6 @@ ansible-test-02.bruning.io
 
 [file_servers]
 ansible-test-03.bruning.io
+
+[workstations]
+ansible-test-01.bruning.io
