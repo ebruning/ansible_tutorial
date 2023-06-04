@@ -7,6 +7,7 @@
       dnf:
         update_only: yes
         update_cache: yes
+      changed_when: false
       when: ansible_distribution == "Fedora"
 
     - name: Install updates (Ubuntu/Debian)
@@ -14,7 +15,32 @@
       apt:
         upgrade: dist
         update_cache: yes
+      changed_when: false
       when: ansible_distribution in ["Ubuntu", "Debian"]
+
+- hosts: all
+  become: true
+  tasks:
+    - name: Create Simone user
+      tags: always
+      user:
+        name: simone
+        groups: root
+
+    - name: Add ssh key for simone
+      tags: always
+      authorized_key:
+        user: simone
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIONvIhjMrNF/aMYWUrBH7RHgL03WehKMS88qAkNgvqn2 ethan internal servers"
+
+    - name: Add suders file for simone
+      tags: always
+      copy:
+        src: sudoers_simone
+        dest: /etc/sudoers.d/simone
+        owner: root
+        group: root
+        mode: 0440
 
 - hosts: workstations
   become: true
